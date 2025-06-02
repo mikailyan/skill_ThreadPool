@@ -18,11 +18,13 @@ CPU-bound задачи:
 - maxPoolSize = corePoolSize
 - queueSize «обычная» (10–100), чтобы не нарастить долгий backlog.
 - keepAliveTime ≈ 10–30 сек, minSpareThreads = corePoolSize (ядро не убивать).
+
 I/O-bound задачи::
 - corePoolSize ≈ number_of_cores
 - maxPoolSize ≈ cores * (1 + W/C) (W = время ожидания I/O, C = время вычислений).
 - queueSize ≈ cores * 10 (или больше).
 - keepAliveTime = 30–60 сек, minSpareThreads = 1–2.
+
 Очередь задач:
 - Малая (10–50): быстро «отказывается» при пике, низкая задержка.
 - Большая (100+): гасит всплески, но увеличивает время ожидания.
@@ -37,5 +39,6 @@ I/O-bound задачи::
 ```java
 task = taskQueue.poll(keepAliveTime, TimeUnit.MILLISECONDS);
 if (task != null) run(task);
-else if (workers.size() > corePoolSize) terminate();
+else if (workers.size() > corePoolSize) terminate();```
+
 - Балансировка — за счёт единой очереди: первый освободившийся воркер берёт задачу.

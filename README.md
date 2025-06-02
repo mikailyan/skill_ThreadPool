@@ -42,3 +42,11 @@ if (task != null) run(task);
 else if (workers.size() > corePoolSize) terminate();
 ```
 - Балансировка — за счёт единой очереди: первый освободившийся воркер берёт задачу.
+
+## Распределение задач
+- В 99 % случаев достаточно ThreadPoolExecutor(core, max, keepAlive, unit, queue, factory, handler).
+- Если нужна специфичная логика отказа/балансировки — используйте CustomThreadPool.
+- Перед деплоем провести нагрузочное тестирование:
+  - Throughput: задачи Runnable/Callable с разным временем выполнения.
+  - Измерить Time-to-Start (от submit до run()).
+  - Поменять corePoolSize, maxPoolSize, queueSize, keepAliveTime и сравнить результаты.

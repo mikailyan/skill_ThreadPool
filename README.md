@@ -39,6 +39,6 @@ I/O-bound задачи::
 ```java
 task = taskQueue.poll(keepAliveTime, TimeUnit.MILLISECONDS);
 if (task != null) run(task);
-else if (workers.size() > corePoolSize) terminate();```
-
+else if (workers.size() > corePoolSize) terminate();
+```
 - Балансировка — за счёт единой очереди: первый освободившийся воркер берёт задачу.

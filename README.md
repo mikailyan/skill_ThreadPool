@@ -1,4 +1,4 @@
-# Custom Thread Pool
+# Thread Pool
 
 ## Описание
 Реализован собственный пул потоков с:
